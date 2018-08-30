@@ -1,0 +1,7 @@
+#!/bin/bash
+#PBS -j oe
+
+#generate counts
+htseq-count -f bam --type=gene "$RNASEQ_ROOT"/results/"$RNASEQ_JOB_IDENT"/bams/"$INPUT_FILE".sort.bam "$RNASEQ_ROOT"/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/genes.gtf > "$RNASEQ_ROOT"/results/"$RNASEQ_JOB_IDENT"/counts/"$INPUT_FILE".htseq.tab && echo "$INPUT_FILE COUNT SUCCESSFUL" >> "$RNASEQ_SCRATCH"/logs/"$RNASEQ_JOB_IDENT"/"$INPUT_FILE".log
+
+exit

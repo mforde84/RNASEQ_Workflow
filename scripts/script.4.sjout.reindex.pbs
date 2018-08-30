@@ -1,0 +1,17 @@
+#!/bin/bash
+#PBS -j oe
+#PBS -l nodes=1:ppn=8
+#PBS -l mem=60Gb
+
+#add novel junctions to aggregate
+for f in $(find $RNASEQ_ROOT/data/"$RNASEQ_JOB_IDENT"/intermediate -name "*SJ.out*" -type -f); do
+ cat $f >> "$RNASEQ_ROOT"/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/2pass/sj_combo.tab;
+done;
+
+#remove duplicate junctions
+sort "$RNASEQ_ROOT"/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/2pass/sj_combo.tab | uniq > "$RNASEQ_ROOT"/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/2pass/sj_combo.tab
+
+#reindex reference with novel junctions
+STAR --runThreadN 8 --runMode genomeGenerate --genomeDir $RNASEQ_ROOT/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/2pass --genomeFastaFiles "$RNASEQ_ROOT"/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/2pass/genome.fa --sjdbFileChrStartEnd "$RNASEQ_ROOT"/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/2pass/sj_combo.tab --sjdbGTFfile "$RNASEQ_ROOT"/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/2pass/genes.gtf --sjdbOverhang $(( $RNASEQ_READ_LENGTH - 1 )) && echo "INDEX 2 SUCCESSFUL" >> "$RNASEQ_SCRATCH"/logs/"$RNASEQ_JOB_IDENT"/INDEX.2.log
+
+exit 0

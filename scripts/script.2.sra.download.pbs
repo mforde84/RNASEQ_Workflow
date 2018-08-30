@@ -1,0 +1,5 @@
+#!/bin/bash
+#PBS -j oe
+
+#download SRA fastq files, and split by read name if paired
+fastq-dump --split-3 -O "$RNASEQ_SCRATCH"/data/"$RNASEQ_JOB_IDENT"/reads "$INPUT_FILE" && echo "$INPUT_FILE DOWNLOAD SUCCESSFUL" >> "$RNASEQ_SCRATCH"/logs/"$RNASEQ_JOB_IDENT"/"$INPUT_FILE".log;

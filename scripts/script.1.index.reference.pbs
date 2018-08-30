@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -j oe
+#PBS -l nodes=1:ppn=8
+#PBS -l mem=40Gb
+
+#if reference doesnt exist
+if [ ! -f $RNASEQ_ROOT/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/SA ]; then
+ STAR --runThreadN 8 --runMode genomeGenerate --genomeDir $RNASEQ_ROOT/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp --genomeFastaFiles $RNASEQ_ROOT/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/genome.fa --sjdbGTFfile "$RNASEQ_ROOT"/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/genes.gtf --sjdbOverhang $(( $RNASEQ_READ_LENGTH - 1 )) && echo "INDEX 1 SUCCESSFUL" >> "$RNASEQ_SCRATCH"/logs/"$RNASEQ_JOB_IDENT"/INDEX.1.log
+fi
+echo "1PASS INDEX ALREADY PRESENT" >> "$RNASEQ_SCRATCH"/logs/"$RNASEQ_JOB_IDENT"/INDEX.1.LOG;
+
+exit 0
