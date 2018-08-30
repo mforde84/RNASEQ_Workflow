@@ -4,7 +4,7 @@
 #PBS -l mem=60Gb
 
 #add novel junctions to aggregate
-for f in $(find $RNASEQ_ROOT/data/"$RNASEQ_JOB_IDENT"/intermediate -name "*SJ.out*" -type -f); do
+for f in $(find $RNASEQ_ROOT/data/"$RNASEQ_JOB_IDENT"/intermediate -name "*SJ.out*" -type f); do
  cat $f >> "$RNASEQ_ROOT"/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"bp/2pass/sj_combo.tab;
 done;
 
