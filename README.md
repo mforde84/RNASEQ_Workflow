@@ -2,7 +2,7 @@
 Workflow for STAR 2pass processing of RNAseq reads from SRA accession numbers on Torque/PBS HPC.
 
 Usage:
-$ ./workflow <options> <-h / help> <default: interactive>
+$ ./workflow <args> <-h / help> <default: interactive>
   
 Features
   1) software redistributable built from source
