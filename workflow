@@ -6,10 +6,8 @@ export RNASEQ_SCRATCH="";
 export RNASEQ_JOB_IDENT="";
 export RNASEQ_FASTA="";
 export RNASEQ_GTF="";
-#export RNASEQ_TRANSCRIPT="";
 export RNASEQ_SRA_ID="";
 export RNASEQ_SRA_LIST="";
-#export RNASEQ_KMER_LENGTH="";
 export RNASEQ_READ_LENGTH="";
 export INSTALL_STATUS="";
 
@@ -27,10 +25,8 @@ while getopts ":h-:" opt; do
    echo "		--SRRlist 			<loc>	line delimited file with SRR ids <default: interactive>";
    echo "		--SRRid		 		<SRR>	process single SRR accession <default: interactive>";
    echo "		--fasta 			<loc>	location for GRCh38 fasta <default: interactive>";
-   echo "		--gtf				<loc>	location for GRCh38 gtf <default: interactive>";
-#   echo "		--transcript			<loc>	location for GRCh38 transcriptome <default: interactive>";  
+   echo "		--gtf				<loc>	location for GRCh38 gtf <default: interactive>"; 
    echo "		--read_len			<int>	size of read <default: interactive>";
-#   echo "		--kmer_len			<int>	size of kmer for transcript quantification <default: interactive>";
    echo "		--prefix			<str>	job name / id <default: interactive>";
    exit 0;
    ;;
@@ -88,11 +84,6 @@ while getopts ":h-:" opt; do
      export RNASEQ_GTF=`readlink -f $HOLD`;
      OPTIND=$(( $OPTIND + 1 ));
     ;;
- #   transcript)
- #    HOLD="${!OPTIND}";
- #    export RNASEQ_TRANSCRIPT=`readlink -f $HOLD`;
- #    OPTIND=$(( $OPTIND + 1 ));
- #   ;;  
     read_len)
      export RNASEQ_READ_LENGTH="${!OPTIND}";
      OPTIND=$(( $OPTIND + 1 ));
