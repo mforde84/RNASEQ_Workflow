@@ -40,7 +40,7 @@ while getopts ":h-:" opt; do
      mkdir -p $RNASEQ_ROOT;
      cd $RNASEQ_ROOT;
      git init .;
-     git remote add -t \* -f origin https://git.cri.uchicago.edu/mforde/RNASEQ_Workflow.git;
+     git remote add -t \* -f origin https://github.com/mforde84/RNASEQ_Workflow;
      git checkout master;
      bash $RNASEQ_ROOT/scripts/script.0d.installation.sh;
      exit;
