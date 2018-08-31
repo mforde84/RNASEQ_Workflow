@@ -1,6 +1,9 @@
 #!/bin/bash
 #PBS -j oe
 
+#capture read file name
+export READS1=`ls "$RNASEQ_SCRATCH"/data/"$RNASEQ_JOB_IDENT"/reads | tr "\t" "\n" | grep "$INPUT_FILE.*fastq" | head -n1;`;
+
 #sort by read name and save to results/bams folder
 samtools sort -n -o "$RNASEQ_ROOT"/results/"$RNASEQ_JOB_IDENT"/bams/"$INPUT_FILE".sort.bam -O bam "$RNASEQ_SCRATCH"/data/"$RNASEQ_JOB_IDENT"/intermediate/"$READS1"_2ndpass*bam && echo "$INPUT_FILE SORT SUCCESSFUL" >> "$RNASEQ_SCRATCH"/logs/"$RNASEQ_JOB_IDENT"/"$INPUT_FILE".log
 
