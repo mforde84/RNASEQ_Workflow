@@ -130,11 +130,6 @@ while read -r line; do
  export INPUT_FILE=$line;
  export DOWNLOAD=`qsub -o $RNASEQ_SCRATCH/logs/$RNASEQ_JOB_IDENT -W depend=afterok:$INDEX -N log.sra.download.$INPUT_FILE -V $RNASEQ_ROOT/scripts/script.2.sra.download.pbs | sed 's/\..*//g';`;
  
- #grab read filenames if se / pe
- unset READS2;
- export READS1=`ls "$RNASEQ_SCRATCH"/data/"$RNASEQ_JOB_IDENT"/reads | tr "\t" "\n" | grep "$INPUT_FILE.*fastq" | head -n1;`;
- echo $READS1 | grep "^.*_1.fastq" && export READS2=`echo $READS1 | sed 's/_1.fastq/_2.fastq/g'`
- 
  #run 1st pass align
  export ALIGN1=`qsub -o $RNASEQ_SCRATCH/logs/$RNASEQ_JOB_IDENT -W depend=afterok:$DOWNLOAD -N log.1stpass.$INPUT_FILE -V $RNASEQ_ROOT/scripts/script.3.star1.align.pbs | sed 's/\..*//g';`":""$ALIGN1";
 
@@ -150,12 +145,7 @@ export REINDEX=`qsub -o $RNASEQ_SCRATCH/logs/$RNASEQ_JOB_IDENT -N log.index.2 -W
 while read -r line; do
 
  export INPUT_FILE=$line;
- 
- #grab read filenames if se / pe
- unset READS2;
- export READS1=`ls "$RNASEQ_SCRATCH"/data/"$RNASEQ_JOB_IDENT"/reads | tr "\t" "\n" | grep "$INPUT_FILE.*fastq" | head -n1;`;
- echo $READS1 | grep "^.*_1.fastq" && export READS2=`echo $READS1 | sed 's/_1.fastq/_2.fastq/g'`
- 
+
  #2nd pass align
  export ALIGN2=`qsub -o $RNASEQ_SCRATCH/logs/$RNASEQ_JOB_IDENT -W depend=afterok:$REINDEX -N log.2ndpass.$INPUT_FILE -V $RNASEQ_ROOT/scripts/script.5.star2.align.pbs | sed 's/\..*//g';`;
  
