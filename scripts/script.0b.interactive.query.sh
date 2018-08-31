@@ -75,12 +75,12 @@ ln -s $RNASEQ_GTF $RNASEQ_ROOT/references/"$FASTA"_"$GTF"_"$RNASEQ_READ_LENGTH"b
 
 # data folder
 if [ ! -d "$RNASEQ_SCRATCH"/data/"$RNASEQ_JOB_IDENT" ]; then
- mkdir $RNASEQ_SCRATCH/data/"$RNASEQ_JOB_IDENT"/intermediate
- mkdir $RNASEQ_SCRATCH/data/"$RNASEQ_JOB_IDENT"/reads
+ mkdir -p $RNASEQ_SCRATCH/data/"$RNASEQ_JOB_IDENT"/intermediate
+ mkdir -p $RNASEQ_SCRATCH/data/"$RNASEQ_JOB_IDENT"/reads
 fi
 
 # results folder
 if [ ! -d "$RNASEQ_ROOT"/results/"$RNASEQ_JOB_IDENT" ]; then
  mkdir -p $RNASEQ_ROOT/results/"$RNASEQ_JOB_IDENT"/bams;
- mkdir $RNASEQ_ROOT/results/"$RNASEQ_JOB_IDENT"/counts;
+ mkdir -p $RNASEQ_ROOT/results/"$RNASEQ_JOB_IDENT"/counts;
 fi
